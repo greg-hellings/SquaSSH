@@ -14,9 +14,15 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-        rotatetabtext.cpp
+    account.cpp
 
 HEADERS  += mainwindow.h \
-            rotatetabtext.h
+    account.h
 
-FORMS    += mainwindow.ui
+FORMS    += mainwindow.ui \
+    account.ui \
+    accountlist.ui
+
+LIBS     += -L/usr/lib64 -lqtermwidget5 -L/usr/local/lib -lqtreetabs-qt5
+
+INCLUDEPATH += /usr/include/qtermwidget5 /usr/local/include/qtreetabs-qt5/

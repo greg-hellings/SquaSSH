@@ -3,8 +3,12 @@
 
 #include <QMainWindow>
 
+class TermWidget;
+class QLabel;
+
 namespace Ui {
 class MainWindow;
+class AccountList;
 }
 
 class MainWindow : public QMainWindow
@@ -14,6 +18,10 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
+
+public slots:
+    void newTab();
+    void removeTab();
 
 private:
     Ui::MainWindow *ui;
