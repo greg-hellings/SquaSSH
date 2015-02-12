@@ -26,6 +26,7 @@ public:
 public slots:
     void openConnection();
     void newTab();
+    void quickOpen();
     void removeTab();
     void addAccount();
     void addAccount(AccountEntry* entry);
@@ -35,6 +36,7 @@ public slots:
 
 protected:
     QModelIndex currentSelection();
+    void createTab(const AccountEntry* entry);
 
 private:
     Ui::MainWindow *ui;
