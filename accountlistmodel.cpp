@@ -57,5 +57,7 @@ bool AccountListModel::removeRow(int row, const QModelIndex &parent)
         beginRemoveRows(QModelIndex(), row, row);
         this->items.remove(row);
         endRemoveRows();
+        return true;
     }
+    return false;
 }
