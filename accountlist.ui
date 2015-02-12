@@ -65,7 +65,14 @@
     </widget>
    </item>
    <item row="0" column="0">
-    <widget class="QListView" name="accounts"/>
+    <widget class="QListView" name="accounts">
+     <property name="alternatingRowColors">
+      <bool>true</bool>
+     </property>
+     <property name="selectionMode">
+      <enum>QAbstractItemView::MultiSelection</enum>
+     </property>
+    </widget>
    </item>
   </layout>
  </widget>

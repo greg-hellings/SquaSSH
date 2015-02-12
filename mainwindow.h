@@ -39,6 +39,7 @@ protected:
 private:
     Ui::MainWindow *ui;
     Ui::AccountList* accountListUi;
+    QDialog* accountListDialog;
     Account* accountWindow;
     AccountListModel* accountListModel;
     QSettings* settings;

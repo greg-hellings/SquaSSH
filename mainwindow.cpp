@@ -51,18 +51,18 @@ MainWindow::~MainWindow()
 void MainWindow::openConnection()
 {
     // Create dialog and its UI
-    QDialog* dialog = new QDialog(this);
+    this->accountListDialog = new QDialog(this);
     this->accountListUi = new Ui::AccountList;
-    this->accountListUi->setupUi(dialog);
+    this->accountListUi->setupUi(this->accountListDialog);
     // Bind UI to account listing
     this->accountListUi->accounts->setModel(this->accountListModel);
-    dialog->show();
+    this->accountListDialog->show();
     // Button bindings
     this->connect(this->accountListUi->add, SIGNAL(clicked()), SLOT(addAccount()));
     this->connect(this->accountListUi->edit, SIGNAL(clicked()), SLOT(editAccount()));
     this->connect(this->accountListUi->remove, SIGNAL(clicked()), SLOT(removeAccount()));
     this->connect(this->accountListUi->ok, SIGNAL(clicked()), SLOT(newTab()));
-    QObject::connect(this->accountListUi->cancel, SIGNAL(clicked()), dialog, SLOT(close()));
+    QObject::connect(this->accountListUi->cancel, SIGNAL(clicked()), this->accountListDialog, SLOT(close()));
 }
 
 QModelIndex MainWindow::currentSelection()
@@ -78,26 +78,30 @@ QModelIndex MainWindow::currentSelection()
  **********************************************************************************************/
 void MainWindow::newTab()
 {
-    QModelIndex host = this->currentSelection();
-    if (host.internalPointer() != NULL) {
-        const AccountEntry* entry = static_cast<AccountEntry*>(host.internalPointer());
-        QTermWidget* term = new QTermWidget(false, this);
-        term->setScrollBarPosition(QTermWidget::ScrollBarRight);
-        term->setShellProgram("ssh");
-        QStringList args;
-        args.append( ( (entry->username != "") ? (entry->username + "@") : "") + entry->host);
-        if (entry->isSocksPortEnabled) {
-            args.append("-D");
-            args.append(QString::number(entry->socksPort));
+    QModelIndexList selection = this->accountListUi->accounts->selectionModel()->selectedIndexes();
+    for (int i = 0; i < selection.count(); ++i) {
+        QModelIndex host = selection.at(i);
+        if (host.internalPointer() != NULL) {
+            const AccountEntry* entry = static_cast<AccountEntry*>(host.internalPointer());
+            QTermWidget* term = new QTermWidget(false, this);
+            term->setScrollBarPosition(QTermWidget::ScrollBarRight);
+            term->setShellProgram("ssh");
+            QStringList args;
+            args.append( ( (entry->username != "") ? (entry->username + "@") : "") + entry->host);
+            if (entry->isSocksPortEnabled) {
+                args.append("-D");
+                args.append(QString::number(entry->socksPort));
+            }
+            term->setArgs(args);
+            term->startShellProgram();
+            // Remove when session ends
+            this->connect(term, SIGNAL(finished()), SLOT(removeTab()));
+            // Add to deck
+            OpenTab* tab = this->ui->tabWidget->newTab(term);
+            tab->setText(entry->displayName);
         }
-        term->setArgs(args);
-        term->startShellProgram();
-        // Remove when session ends
-        this->connect(term, SIGNAL(finished()), SLOT(removeTab()));
-        // Add to deck
-        OpenTab* tab = this->ui->tabWidget->newTab(term);
-        tab->setText(entry->displayName);
     }
+    this->accountListDialog->close();
 }
 
 void MainWindow::removeTab()
