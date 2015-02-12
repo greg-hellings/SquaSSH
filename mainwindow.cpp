@@ -1,6 +1,8 @@
 #include "mainwindow.h"
+#include "accountlistmodel.h"
 #include "ui_mainwindow.h"
 #include "ui_accountlist.h"
+#include "account.h"
 
 #include "qtermwidget.h"
 #include <qtreetabs.h>
@@ -11,7 +13,9 @@
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
-    ui(new Ui::MainWindow)
+    ui(new Ui::MainWindow),
+    accountWindow(NULL),
+    accountListModel(new AccountListModel())
 {
     ui->setupUi(this);
     this->connect(this->ui->openConnection, SIGNAL(clicked()), SLOT(newTab()));
@@ -24,10 +28,15 @@ MainWindow::~MainWindow()
 
 void MainWindow::newTab()
 {
+    // Create dialog and its UI
     QDialog* dialog = new QDialog();
     Ui::AccountList* accountList = new Ui::AccountList;
     accountList->setupUi(dialog);
+    // Bind UI to account listing
+    accountList->accounts->setModel(this->accountListModel);
     dialog->show();
+    // Button bindings
+    this->connect(accountList->add, SIGNAL(clicked()), SLOT(addAccount()));
     // Create shell term
 //    QTermWidget* term = new QTermWidget(this);
 //    term->setScrollBarPosition(QTermWidget::ScrollBarRight);
@@ -40,6 +49,19 @@ void MainWindow::newTab()
 //    // Add it to the tab deck
 //    this->ui->tabWidget->newTab(term);
 
+}
+
+void MainWindow::addAccount()
+{
+    this->accountWindow = new Account();
+    this->connect(this->accountWindow, SIGNAL(accepted(AccountEntry*)), SLOT(addAccount(AccountEntry*)));
+    this->accountWindow->show();
+}
+
+void MainWindow::addAccount(AccountEntry *entry)
+{
+    this->accountWindow->close();
+    this->accountListModel->append(entry);
 }
 
 void MainWindow::removeTab()

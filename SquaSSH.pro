@@ -14,10 +14,14 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    account.cpp
+    account.cpp \
+    accountentry.cpp \
+    accountlistmodel.cpp
 
 HEADERS  += mainwindow.h \
-    account.h
+    account.h \
+    accountentry.h \
+    accountlistmodel.h
 
 FORMS    += mainwindow.ui \
     account.ui \

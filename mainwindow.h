@@ -5,6 +5,9 @@
 
 class TermWidget;
 class QLabel;
+class Account;
+class AccountEntry;
+class AccountListModel;
 
 namespace Ui {
 class MainWindow;
@@ -22,9 +25,13 @@ public:
 public slots:
     void newTab();
     void removeTab();
+    void addAccount();
+    void addAccount(AccountEntry* entry);
 
 private:
     Ui::MainWindow *ui;
+    Account* accountWindow;
+    AccountListModel* accountListModel;
 };
 
 #endif // MAINWINDOW_H

@@ -1,11 +1,14 @@
 #include "account.h"
 #include "ui_account.h"
+#include "accountentry.h"
 
 Account::Account(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::account)
 {
     ui->setupUi(this);
+    this->connect(this->ui->buttonBox, SIGNAL(accepted()), SLOT(ok()));
+    this->connect(this->ui->buttonBox, SIGNAL(rejected()), SLOT(close()));
 }
 
 Account::~Account()
@@ -61,4 +64,37 @@ bool Account::isLocalEnabled() const
 int Account::localPort() const
 {
     return this->ui->localPort->value();
+}
+
+bool Account::isCompressionEnabled() const
+{
+    return this->ui->compressionEnabled->isChecked();
+}
+
+bool Account::isXForwardingEnabled() const
+{
+    return this->ui->xEnabled->isChecked();
+}
+
+void Account::ok()
+{
+    AccountEntry* entry = new AccountEntry;
+    // Necessary parts
+    entry->displayName = this->displayName();
+    entry->host = this->host();
+    entry->username = this->username();
+    // Options
+    entry->remoteDirectory = this->remoteDirectory();
+    // Proxies
+    entry->isLocalPortEnabled = this->isLocalEnabled();
+    entry->localPort = this->localPort();
+    entry->isRemotePortEnabled = this->isRemoteEnabled();
+    entry->remotePort = this->remotePort();
+    entry->isSocksPortEnabled = this->isSocksEnabled();
+    entry->socksPort = this->socksPort();
+    // Flags
+    entry->isCompressionEnabled = this->isCompressionEnabled();
+    entry->isXForwardingEnabled = this->isXForwardingEnabled();
+
+    emit accepted(entry);
 }

@@ -7,6 +7,8 @@ namespace Ui {
 class account;
 }
 
+class AccountEntry;
+
 class Account : public QDialog
 {
     Q_OBJECT
@@ -27,6 +29,12 @@ public:
     int remotePort() const;
     bool isXForwardingEnabled() const;
     bool isCompressionEnabled() const;
+
+public slots:
+    void ok();
+
+signals:
+    void accepted(AccountEntry* entry);
 
 private:
     Ui::account *ui;
