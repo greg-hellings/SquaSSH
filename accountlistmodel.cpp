@@ -43,3 +43,10 @@ bool AccountListModel::append(AccountEntry* entry)
     endInsertRows();
     return true;
 }
+
+bool AccountListModel::update(int row, AccountEntry *entry)
+{
+    this->items.replace(row, entry);
+    emit dataChanged(this->index(row), this->index(row));
+    return true;
+}

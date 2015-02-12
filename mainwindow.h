@@ -27,9 +27,12 @@ public slots:
     void removeTab();
     void addAccount();
     void addAccount(AccountEntry* entry);
+    void editAccount();
+    void editAccount(AccountEntry* entry);
 
 private:
     Ui::MainWindow *ui;
+    Ui::AccountList* accountListUi;
     Account* accountWindow;
     AccountListModel* accountListModel;
 };

@@ -15,6 +15,7 @@ class Account : public QDialog
 
 public:
     explicit Account(QWidget *parent = 0);
+    Account(AccountEntry* entry, QWidget* parent = 0);
     ~Account();
 
     QString displayName() const;

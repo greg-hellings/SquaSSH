@@ -30,13 +30,14 @@ void MainWindow::newTab()
 {
     // Create dialog and its UI
     QDialog* dialog = new QDialog();
-    Ui::AccountList* accountList = new Ui::AccountList;
-    accountList->setupUi(dialog);
+    this->accountListUi = new Ui::AccountList;
+    this->accountListUi->setupUi(dialog);
     // Bind UI to account listing
-    accountList->accounts->setModel(this->accountListModel);
+    this->accountListUi->accounts->setModel(this->accountListModel);
     dialog->show();
     // Button bindings
-    this->connect(accountList->add, SIGNAL(clicked()), SLOT(addAccount()));
+    this->connect(this->accountListUi->add, SIGNAL(clicked()), SLOT(addAccount()));
+    this->connect(this->accountListUi->edit, SIGNAL(clicked()), SLOT(editAccount()));
     // Create shell term
 //    QTermWidget* term = new QTermWidget(this);
 //    term->setScrollBarPosition(QTermWidget::ScrollBarRight);
@@ -62,6 +63,23 @@ void MainWindow::addAccount(AccountEntry *entry)
 {
     this->accountWindow->close();
     this->accountListModel->append(entry);
+}
+
+void MainWindow::editAccount()
+{
+    QModelIndexList selection = this->accountListUi->accounts->selectionModel()->selectedIndexes();
+    if (selection.count() > 0) {
+        AccountEntry* entry = static_cast<AccountEntry*>(this->accountListModel->index(selection.first().row(), 0, QModelIndex()).internalPointer());
+        this->accountWindow = new Account(entry, this);
+        this->connect(this->accountWindow, SIGNAL(accepted(AccountEntry*)), SLOT(editAccount(AccountEntry*)));
+        this->accountWindow->show();
+    }
+}
+
+void MainWindow::editAccount(AccountEntry* entry)
+{
+    this->accountWindow->close();
+    this->accountListModel->update(this->accountListUi->accounts->selectionModel()->selectedIndexes().first().row(), entry);
 }
 
 void MainWindow::removeTab()

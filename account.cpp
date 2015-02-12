@@ -11,6 +11,29 @@ Account::Account(QWidget *parent) :
     this->connect(this->ui->buttonBox, SIGNAL(rejected()), SLOT(close()));
 }
 
+Account::Account(AccountEntry* entry, QWidget* parent) :
+    QDialog(parent),
+    ui(new Ui::account)
+{
+    this->ui->setupUi(this);
+    this->connect(this->ui->buttonBox, SIGNAL(accepted()), SLOT(ok()));
+    this->connect(this->ui->buttonBox, SIGNAL(rejected()), SLOT(close()));
+    this->ui->displayName->setText(entry->displayName);
+    this->ui->host->setText(entry->host);
+    this->ui->username->setText(entry->username);
+    this->ui->remoteDirectory->setText(entry->remoteDirectory);
+    // Ports
+    this->ui->localEnabled->setChecked(entry->isLocalPortEnabled);
+    this->ui->localPort->setValue(entry->localPort);
+    this->ui->remoteEnabled->setChecked(entry->isRemotePortEnabled);
+    this->ui->remotePort->setValue(entry->remotePort);
+    this->ui->socksEnabled->setChecked(entry->isSocksPortEnabled);
+    this->ui->socksPort->setValue(entry->socksPort);
+    // Flags
+    this->ui->xEnabled->setChecked(entry->isXForwardingEnabled);
+    this->ui->compressionEnabled->setChecked(entry->isCompressionEnabled);
+}
+
 Account::~Account()
 {
     delete ui;
