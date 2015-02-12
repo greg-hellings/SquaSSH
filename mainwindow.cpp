@@ -38,6 +38,8 @@ void MainWindow::newTab()
     // Button bindings
     this->connect(this->accountListUi->add, SIGNAL(clicked()), SLOT(addAccount()));
     this->connect(this->accountListUi->edit, SIGNAL(clicked()), SLOT(editAccount()));
+    this->connect(this->accountListUi->remove, SIGNAL(clicked()), SLOT(removeAccount()));
+    QObject::connect(this->accountListUi->cancel, SIGNAL(clicked()), dialog, SLOT(close()));
     // Create shell term
 //    QTermWidget* term = new QTermWidget(this);
 //    term->setScrollBarPosition(QTermWidget::ScrollBarRight);
@@ -80,6 +82,11 @@ void MainWindow::editAccount(AccountEntry* entry)
 {
     this->accountWindow->close();
     this->accountListModel->update(this->accountListUi->accounts->selectionModel()->selectedIndexes().first().row(), entry);
+}
+
+void MainWindow::removeAccount()
+{
+    this->accountListModel->removeRow(this->accountListUi->accounts->selectionModel()->selectedIndexes().first().row());
 }
 
 void MainWindow::removeTab()

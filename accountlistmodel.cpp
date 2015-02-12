@@ -50,3 +50,12 @@ bool AccountListModel::update(int row, AccountEntry *entry)
     emit dataChanged(this->index(row), this->index(row));
     return true;
 }
+
+bool AccountListModel::removeRow(int row, const QModelIndex &parent)
+{
+    if (row < this->items.count()) {
+        beginRemoveRows(QModelIndex(), row, row);
+        this->items.remove(row);
+        endRemoveRows();
+    }
+}

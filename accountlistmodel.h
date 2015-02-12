@@ -15,6 +15,7 @@ public:
     int rowCount(const QModelIndex &parent) const;
     QVariant data(const QModelIndex &index, int role) const;
     QModelIndex index(int row, int column = 0, const QModelIndex &parent = QModelIndex()) const;
+    bool removeRow(int row, const QModelIndex &parent = QModelIndex());
     bool append(AccountEntry* entry);
     bool update(int row, AccountEntry* entry);
 

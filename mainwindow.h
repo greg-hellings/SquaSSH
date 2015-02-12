@@ -29,6 +29,7 @@ public slots:
     void addAccount(AccountEntry* entry);
     void editAccount();
     void editAccount(AccountEntry* entry);
+    void removeAccount();
 
 private:
     Ui::MainWindow *ui;
