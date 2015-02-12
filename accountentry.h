@@ -3,11 +3,16 @@
 
 #include <QString>
 
+class QSettings;
+
 class AccountEntry
 {
 public:
     AccountEntry();
+    AccountEntry(const QSettings* settings);
     ~AccountEntry();
+
+    void writeToSettings(QSettings* settings);
 
     QString displayName;
     QString username;

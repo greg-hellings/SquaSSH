@@ -8,6 +8,7 @@ class QLabel;
 class Account;
 class AccountEntry;
 class AccountListModel;
+class QSettings;
 
 namespace Ui {
 class MainWindow;
@@ -23,6 +24,7 @@ public:
     ~MainWindow();
 
 public slots:
+    void openConnection();
     void newTab();
     void removeTab();
     void addAccount();
@@ -31,11 +33,15 @@ public slots:
     void editAccount(AccountEntry* entry);
     void removeAccount();
 
+protected:
+    QModelIndex currentSelection();
+
 private:
     Ui::MainWindow *ui;
     Ui::AccountList* accountListUi;
     Account* accountWindow;
     AccountListModel* accountListModel;
+    QSettings* settings;
 };
 
 #endif // MAINWINDOW_H
