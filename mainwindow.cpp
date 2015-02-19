@@ -105,12 +105,30 @@ void MainWindow::createTab(const AccountEntry *entry)
     term->setScrollBarPosition(QTermWidget::ScrollBarRight);
     term->setShellProgram("ssh");
     QStringList args;
+    QStringList env;
+    env.append("TERM=xterm-256color");
     args.append( ( (entry->username != "") ? (entry->username + "@") : "") + entry->host);
     if (entry->isSocksPortEnabled) {
         args.append("-D");
         args.append(QString::number(entry->socksPort));
     }
+    // Still needs additional options
+//    if (entry->isLocalPortEnabled) {
+//        args.append("-L");
+//        args.append(QString::number(entry->localPort));
+//    }
+//    if (entry->isRemotePortEnabled) {
+//        args.append("-R");
+//        args.append(QString::number(entry->remotePort));
+//    }
+    if (entry->isXForwardingEnabled) {
+        args.append("-X");
+    }
+    if (entry->isCompressionEnabled) {
+        args.append("-C");
+    }
     term->setArgs(args);
+    term->setEnvironment(env);
     term->startShellProgram();
     // Remove when session ends
     this->connect(term, SIGNAL(finished()), SLOT(removeTab()));
