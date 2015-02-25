@@ -19,11 +19,11 @@ public:
     QString host;
     QString remoteDirectory;
     bool isSocksPortEnabled;
-    int socksPort;
+    QString socksPort;
     bool isLocalPortEnabled;
-    int localPort;
+    QString localPort;
     bool isRemotePortEnabled;
-    int remotePort;
+    QString remotePort;
     bool isXForwardingEnabled;
     bool isCompressionEnabled;
 };

@@ -15,11 +15,11 @@ AccountEntry::AccountEntry(const QSettings *settings)
     this->remoteDirectory = settings->value("remoteDirectory").toString();
     // Proxies
     this->isSocksPortEnabled = settings->value("isSocksPortEnabled").toBool();
-    this->socksPort = settings->value("socksPort").toInt();
+    this->socksPort = settings->value("socksPort").toString();
     this->isRemotePortEnabled = settings->value("isRemotePortEnabled").toBool();
-    this->remotePort = settings->value("remotePort").toInt();
+    this->remotePort = settings->value("remotePort").toString();
     this->isLocalPortEnabled = settings->value("isLocalPortEnabled").toBool();
-    this->localPort = settings->value("localPort").toInt();
+    this->localPort = settings->value("localPort").toString();
     // Flags
     this->isXForwardingEnabled = settings->value("isXForwardingEnabled").toBool();
     this->isCompressionEnabled = settings->value("isCompressionEnabled").toBool();

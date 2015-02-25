@@ -23,11 +23,11 @@ public:
     QString host() const;
     QString remoteDirectory() const;
     bool isSocksEnabled() const;
-    int socksPort() const;
+    QString socksPort() const;
     bool isLocalEnabled() const;
-    int localPort() const;
+    QString localPort() const;
     bool isRemoteEnabled() const;
-    int remotePort() const;
+    QString remotePort() const;
     bool isXForwardingEnabled() const;
     bool isCompressionEnabled() const;
 

@@ -88,29 +88,14 @@
         </property>
        </widget>
       </item>
+      <item row="1" column="2">
+       <widget class="QLineEdit" name="localPort"/>
+      </item>
       <item row="1" column="1">
-       <widget class="QSpinBox" name="remotePort">
-        <property name="maximum">
-         <number>65535</number>
-        </property>
-       </widget>
+       <widget class="QLineEdit" name="remotePort"/>
       </item>
       <item row="1" column="0">
-       <widget class="QSpinBox" name="socksPort">
-        <property name="maximum">
-         <number>65535</number>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="2">
-       <widget class="QSpinBox" name="localPort">
-        <property name="maximum">
-         <number>65535</number>
-        </property>
-        <property name="value">
-         <number>10000</number>
-        </property>
-       </widget>
+       <widget class="QLineEdit" name="socksPort"/>
       </item>
      </layout>
     </widget>

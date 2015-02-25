@@ -24,11 +24,11 @@ Account::Account(AccountEntry* entry, QWidget* parent) :
     this->ui->remoteDirectory->setText(entry->remoteDirectory);
     // Ports
     this->ui->localEnabled->setChecked(entry->isLocalPortEnabled);
-    this->ui->localPort->setValue(entry->localPort);
+    this->ui->localPort->setText(entry->localPort);
     this->ui->remoteEnabled->setChecked(entry->isRemotePortEnabled);
-    this->ui->remotePort->setValue(entry->remotePort);
+    this->ui->remotePort->setText(entry->remotePort);
     this->ui->socksEnabled->setChecked(entry->isSocksPortEnabled);
-    this->ui->socksPort->setValue(entry->socksPort);
+    this->ui->socksPort->setText(entry->socksPort);
     // Flags
     this->ui->xEnabled->setChecked(entry->isXForwardingEnabled);
     this->ui->compressionEnabled->setChecked(entry->isCompressionEnabled);
@@ -64,9 +64,9 @@ bool Account::isSocksEnabled() const
     return this->ui->socksEnabled->isChecked();
 }
 
-int Account::socksPort() const
+QString Account::socksPort() const
 {
-    return this->ui->socksPort->value();
+    return this->ui->socksPort->text();
 }
 
 bool Account::isRemoteEnabled() const
@@ -74,9 +74,9 @@ bool Account::isRemoteEnabled() const
     return this->ui->remoteEnabled->isChecked();
 }
 
-int Account::remotePort() const
+QString Account::remotePort() const
 {
-    return this->ui->remotePort->value();
+    return this->ui->remotePort->text();
 }
 
 bool Account::isLocalEnabled() const
@@ -84,9 +84,9 @@ bool Account::isLocalEnabled() const
     return this->ui->localEnabled->isChecked();
 }
 
-int Account::localPort() const
+QString Account::localPort() const
 {
-    return this->ui->localPort->value();
+    return this->ui->localPort->text();
 }
 
 bool Account::isCompressionEnabled() const

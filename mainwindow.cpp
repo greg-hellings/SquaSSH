@@ -110,17 +110,17 @@ void MainWindow::createTab(const AccountEntry *entry)
     args.append( ( (entry->username != "") ? (entry->username + "@") : "") + entry->host);
     if (entry->isSocksPortEnabled) {
         args.append("-D");
-        args.append(QString::number(entry->socksPort));
+        args.append(entry->socksPort);
     }
     // Still needs additional options
-//    if (entry->isLocalPortEnabled) {
-//        args.append("-L");
-//        args.append(QString::number(entry->localPort));
-//    }
-//    if (entry->isRemotePortEnabled) {
-//        args.append("-R");
-//        args.append(QString::number(entry->remotePort));
-//    }
+    if (entry->isLocalPortEnabled) {
+        args.append("-L");
+        args.append(entry->localPort);
+    }
+    if (entry->isRemotePortEnabled) {
+        args.append("-R");
+        args.append(entry->remotePort);
+    }
     if (entry->isXForwardingEnabled) {
         args.append("-X");
     }
