@@ -125,6 +125,20 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>displayName</tabstop>
+  <tabstop>username</tabstop>
+  <tabstop>host</tabstop>
+  <tabstop>remoteDirectory</tabstop>
+  <tabstop>socksEnabled</tabstop>
+  <tabstop>socksPort</tabstop>
+  <tabstop>remoteEnabled</tabstop>
+  <tabstop>remotePort</tabstop>
+  <tabstop>localEnabled</tabstop>
+  <tabstop>localPort</tabstop>
+  <tabstop>xEnabled</tabstop>
+  <tabstop>compressionEnabled</tabstop>
+ </tabstops>
  <resources/>
  <connections>
   <connection>
